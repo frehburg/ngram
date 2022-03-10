@@ -20,7 +20,7 @@ public class NLPSentenceSplit implements iSentenceSplit<String,String> {
             char currentChar = text.charAt(i);
             switch(currentChar) {
                 case ' ':
-                    split.add(currentWord);
+                    if(!currentWord.equals(""))split.add(currentWord);
                     currentWord = "";
                     break;
                 case '(':
@@ -30,16 +30,18 @@ public class NLPSentenceSplit implements iSentenceSplit<String,String> {
                 case '!':
                 case '?':
                 case ';':
-                    split.add(currentWord);
+                    if(!currentWord.equals(""))split.add(currentWord);
                     currentWord = "";
                     String symbol = ""+currentChar;
                     split.add(symbol);
                     break;
+                case '\n':break;
                 default:
                     currentWord += currentChar;
                     break;
             }
         }
+        if(!currentWord.equals(""))split.add(currentWord);
         return split;
     }
 }

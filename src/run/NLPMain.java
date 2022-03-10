@@ -1,5 +1,7 @@
 package run;
 
+import model.nlp_case.NGramInstance;
+import model.nlp_case.NGramModel;
 import split.NLPSentenceSplit;
 import utils.FileUtils;
 
@@ -11,11 +13,10 @@ public class NLPMain {
     public static boolean DEBUG = true;
     public static void main(String[] args) {
         String input = allLinesOneString("res/happy.txt");
-        System.out.println(input);
-        NLPSentenceSplit nlpSplit = new NLPSentenceSplit();
-        List<String> split = nlpSplit.splitText(input);
-        if(DEBUG)split.forEach(s -> System.out.println(s));
-        
+        NGramModel m = new NGramModel(input, 5);
+        List<String> picklist = m.getPicklist("if", 5);
+        if(DEBUG)System.out.println("PICKLIST: ");
+        if(DEBUG)picklist.forEach(s -> System.out.println(s));
     }
 
     public static String allLinesOneString(String srcContentrootPath) {
