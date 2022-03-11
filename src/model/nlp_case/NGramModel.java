@@ -3,9 +3,12 @@ package model.nlp_case;
 import interfaces.iNGramInstance;
 import interfaces.iNGramModel;
 import split.NLPSentenceSplit;
+import utils.FileUtils;
 import utils.MatchingTailElements;
 import utils.Pair;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -19,6 +22,9 @@ public class NGramModel implements iNGramModel<List<String>,String> {
     private Comparator<NGramInstance> instanceComparator;
     private HashMap<String, List<NGramInstance>> dictionary;
     private NLPSentenceSplit nlpSplit;
+
+    ///
+    private static final String COMMA_REPLACEMENT = "--COMMA--";
 
     public NGramModel(String text, int N) {
         this.text = text;
@@ -34,10 +40,28 @@ public class NGramModel implements iNGramModel<List<String>,String> {
         if(DEBUG)System.out.println(text);
         List<String> split = NLPSentenceSplit.splitText(text);
         if(DEBUG)split.forEach(s -> System.out.println(s));
-        constructModel(split, N);
+        constructModel(split);
+    }
+
+    private NGramModel(HashMap<String, List<NGramInstance>> dictionary, String text, int N) {
+        this.text = text;
+        this.N = N;
+        this.dictionary = dictionary;
+        nlpSplit = new NLPSentenceSplit();
+        instanceComparator = new Comparator<NGramInstance>() {
+            @Override
+            public int compare(NGramInstance o1, NGramInstance o2) {
+                return o2.getMultiplicity() - o1.getMultiplicity();
+            }
+        };
     }
     @Override
-    public void constructModel(List<String> text, int N) {
+    public void constructModel(List<String> text) {
+        addToModel(text);
+    }
+
+    @Override
+    public void addToModel(List<String> text) {
         // n is the length of the created n grams
         createNGramInstances(text, true);
         //TODO: calculate the overall multiplicities of the key for each instance
@@ -60,7 +84,7 @@ public class NGramModel implements iNGramModel<List<String>,String> {
                 //insert it
                 nGramInstances.add(current);
                 if(addToDictionary) {
-                    insert(current);
+                    insertIntoDictionary(current);
                 }
             }
         }
@@ -152,7 +176,6 @@ public class NGramModel implements iNGramModel<List<String>,String> {
         return picklistSize < maxLength ? fullPicklist : fullPicklist.subList(0, maxLength);
     }
 
-    @Override
     /**
      * Strategy:
      * -if ngram already exists, increase multiplicity
@@ -160,7 +183,7 @@ public class NGramModel implements iNGramModel<List<String>,String> {
      *
      * The method keeps a list of the ngrams with the same key as instance: instancesWithSameKey
      */
-    public void insert(iNGramInstance<List<String>,String> instance) {
+    private void insertIntoDictionary(iNGramInstance<List<String>,String> instance) {
         NGramInstance convertedInstance = (NGramInstance) instance;
 
         String wsKey = convertedInstance.getKey();
@@ -188,6 +211,72 @@ public class NGramModel implements iNGramModel<List<String>,String> {
             instancesWithSameKey.add(convertedInstance);
             dictionary.put(wsKey, instancesWithSameKey);
         }
+    }
+
+    @Override
+    public void writeModel(String path) {
+        Set<Map.Entry<String, List<NGramInstance>>> dictionaryEntrySet = dictionary.entrySet();
+        FileWriter fw = FileUtils.writeFile(path);
+        try {
+            fw.write(N+"\n");
+            fw.write("KEY,WORDS,MULTIPLICITY");
+            for(Map.Entry<String, List<NGramInstance>> entry : dictionaryEntrySet) {
+                String key = entry.getKey();
+                for(NGramInstance instance : entry.getValue()) {
+                    String wordsAsString = "";
+                    List<String> words = instance.getWords();
+                    int i = 0;
+                    for(String word : words) {
+                        wordsAsString += word;
+                        if(i < words.size() - 1)
+                            wordsAsString += " ";
+
+                        i++;
+                    }
+                    key = key.replaceAll(",",COMMA_REPLACEMENT);
+                    wordsAsString = wordsAsString.replaceAll(",",COMMA_REPLACEMENT);
+                    fw.write("\n"+key+","+wordsAsString+","+instance.getMultiplicity());
+                }
+            }
+
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static NGramModel readModel(String path) {
+        Scanner sc = FileUtils.readFile(path);
+        String NAsString = sc.nextLine();//N
+        //remove two commas at the end
+        NAsString = NAsString.replaceAll(",,","");
+        int N = Integer.parseInt(NAsString);
+        sc.nextLine();//to skip the header
+        HashMap<String, List<NGramInstance>> dictionary = new HashMap<>();
+        List<NGramInstance> value = new ArrayList<>();
+        while(sc.hasNextLine()) {
+            String line = sc.nextLine();
+            String[] split = line.split(",");
+            String key = split[0];
+            key = key.replaceAll(COMMA_REPLACEMENT,",");
+            String wordsAsString = split[1];
+            String[] wordsAsArray = wordsAsString.split(" ");
+            List<String> words = Arrays.asList(wordsAsArray);
+            words.forEach(s -> s = s.replaceAll(COMMA_REPLACEMENT,","));
+            String multiplicityAsString = split[2];
+            int multiplicity = Integer.parseInt(multiplicityAsString);
+            if(dictionary.containsKey(key)) {
+                value = dictionary.get(key);
+            } else {
+                value = new ArrayList<>();
+            }
+            value.add(new NGramInstance(words,multiplicity));
+            dictionary.put(key,value);
+
+        }
+        sc.close();
+        return new NGramModel(dictionary,"",N);
     }
 
     public String toString() {

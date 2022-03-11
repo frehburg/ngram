@@ -1,0 +1,775 @@
+5
+KEY,WORDS,MULTIPLICITY
+'bout,what I am 'bout to,1
+'bout,I am 'bout to,1
+'bout,am 'bout to,1
+'bout,'bout to,1
+Can't,bring me down Can't nothing,3
+Can't,--COMMA-- happy ) Can't nothing,2
+Can't,me down Can't nothing,3
+Can't,happy ) Can't nothing,2
+Can't,down Can't nothing,3
+Can't,) Can't nothing,2
+Can't,Can't nothing,5
+bad,do Here come bad news,1
+bad,Here come bad news,1
+bad,come bad news,1
+bad,bad news,1
+Come,you wanna do Come on,1
+Come,wanna do Come on,1
+Come,do Come on,1
+Come,Come on,1
+don't,--COMMA-- like I don't care,1
+don't,you got --COMMA-- don't hold,1
+don't,offence to you don't waste,1
+don't,like I don't care,1
+don't,got --COMMA-- don't hold,1
+don't,to you don't waste,1
+don't,I don't care,1
+don't,--COMMA-- don't hold,1
+don't,you don't waste,1
+don't,don't care,1
+don't,don't hold,1
+don't,don't waste,1
+happy,( Because I'm happy ),19
+happy,( Happy --COMMA-- happy --COMMA--,4
+happy,--COMMA-- happy --COMMA-- happy --COMMA--,4
+happy,--COMMA-- happy --COMMA-- happy ),4
+happy,Because I'm happy ),19
+happy,Happy --COMMA-- happy --COMMA--,4
+happy,happy --COMMA-- happy --COMMA--,4
+happy,happy --COMMA-- happy ),4
+happy,I'm happy ),19
+happy,--COMMA-- happy --COMMA--,8
+happy,--COMMA-- happy ),4
+happy,happy ),23
+happy,happy --COMMA--,8
+bring,do Uh --COMMA-- bring me,2
+bring,Can't nothing --COMMA-- bring me,3
+bring,too high to bring me,2
+bring,too high To bring me,1
+bring,Uh --COMMA-- bring me,2
+bring,nothing --COMMA-- bring me,3
+bring,high to bring me,2
+bring,high To bring me,1
+bring,--COMMA-- bring me,5
+bring,to bring me,2
+bring,To bring me,1
+bring,bring me,8
+your,you don't waste your time,1
+your,don't waste your time,1
+your,waste your time,1
+your,your time,1
+without,like a room without a,6
+without,a room without a,6
+without,room without a,6
+without,without a,6
+offence,Yeah ) No offence to,1
+offence,) No offence to,1
+offence,No offence to,1
+offence,offence to,1
+if,) Clap along if you,19
+if,why Clap along if you,1
+if,said Clap along if you,2
+if,do Clap along if you,2
+if,Clap along if you,24
+if,along if you,24
+if,if you,24
+hey,to you ( hey ),1
+hey,you ( hey ),1
+hey,( hey ),1
+hey,hey ),1
+you,she's here --COMMA-- you can,1
+you,Clap along if you feel,18
+you,Clap along if you know,6
+you,happiness is to you (,6
+you,like that's what you wanna,6
+you,give me all you got,1
+you,should probably warn you I'll,1
+you,No offence to you don't,1
+you,here --COMMA-- you can,1
+you,along if you feel,18
+you,along if you know,6
+you,is to you (,6
+you,that's what you wanna,6
+you,me all you got,1
+you,probably warn you I'll,1
+you,offence to you don't,1
+you,--COMMA-- you can,1
+you,if you feel,18
+you,if you know,6
+you,to you (,6
+you,what you wanna,6
+you,all you got,1
+you,warn you I'll,1
+you,to you don't,1
+you,you can,1
+you,you feel,18
+you,you know,6
+you,you (,6
+you,you wanna,6
+you,you got,1
+you,you I'll,1
+you,you don't,1
+give,Yeah ) Well give me,1
+give,) Well give me,1
+give,Well give me,1
+give,give me,1
+nothing,me down Can't nothing --COMMA--,3
+nothing,down --COMMA-- can't nothing Bring,1
+nothing,happy ) Can't nothing (,2
+nothing,down Can't nothing --COMMA--,3
+nothing,--COMMA-- can't nothing Bring,1
+nothing,) Can't nothing (,2
+nothing,Can't nothing --COMMA--,3
+nothing,can't nothing Bring,1
+nothing,Can't nothing (,2
+nothing,nothing --COMMA--,3
+nothing,nothing Bring,1
+nothing,nothing (,2
+(,the way Huh ( Because,1
+(,without a roof ( Because,6
+(,is the truth ( Because,6
+(,is to you ( Because,4
+(,this and that ( Yeah,1
+(,don't hold back ( Yeah,1
+(,be just fine ( Yeah,1
+(,bring me down ( Happy,2
+(,) Can't nothing ( Happy,2
+(,is to you ( ayy,1
+(,--COMMA-- ayy ) ( Because,1
+(,is to you ( hey,1
+(,( hey ) ( Because,1
+(,way Huh ( Because,1
+(,a roof ( Because,6
+(,the truth ( Because,6
+(,to you ( Because,4
+(,and that ( Yeah,1
+(,hold back ( Yeah,1
+(,just fine ( Yeah,1
+(,me down ( Happy,2
+(,Can't nothing ( Happy,2
+(,to you ( ayy,1
+(,ayy ) ( Because,1
+(,to you ( hey,1
+(,hey ) ( Because,1
+(,Huh ( Because,1
+(,roof ( Because,6
+(,truth ( Because,6
+(,you ( Because,4
+(,that ( Yeah,1
+(,back ( Yeah,1
+(,fine ( Yeah,1
+(,down ( Happy,2
+(,nothing ( Happy,2
+(,you ( ayy,1
+(,) ( Because,2
+(,you ( hey,1
+(,( Because,19
+(,( Yeah,3
+(,( Happy,4
+(,( ayy,1
+(,( hey,1
+),Because I'm happy ) Clap,19
+),that ( Yeah ) Well,1
+),back ( Yeah ) Well,1
+),fine ( Yeah ) No,1
+),happy --COMMA-- happy ) Can't,2
+),happy --COMMA-- happy ) Bring,2
+),ayy --COMMA-- ayy ) (,1
+),you ( hey ) (,1
+),I'm happy ) Clap,19
+),( Yeah ) Well,2
+),( Yeah ) No,1
+),--COMMA-- happy ) Can't,2
+),--COMMA-- happy ) Bring,2
+),--COMMA-- ayy ) (,1
+),( hey ) (,1
+),happy ) Clap,19
+),Yeah ) Well,2
+),Yeah ) No,1
+),happy ) Can't,2
+),happy ) Bring,2
+),ayy ) (,1
+),hey ) (,1
+),) Clap,19
+),) Well,2
+),) No,1
+),) Can't,2
+),) Bring,2
+),) (,2
+is,feel like happiness is the,6
+is,know what happiness is to,6
+is,like happiness is the,6
+is,what happiness is to,6
+is,happiness is the,6
+is,happiness is to,6
+is,is the,6
+is,is to,6
+come,wanna do Here come bad,1
+come,do Here come bad,1
+come,Here come bad,1
+come,come bad,1
+am,crazy what I am 'bout,1
+am,what I am 'bout,1
+am,I am 'bout,1
+am,am 'bout,1
+--COMMA--,Sunshine she's here --COMMA-- you,1
+--COMMA--,With the air --COMMA-- like,1
+--COMMA--,I don't care --COMMA-- baby,1
+--COMMA--,all you got --COMMA-- don't,1
+--COMMA--,wanna do Uh --COMMA-- bring,2
+--COMMA--,down Can't nothing --COMMA-- bring,3
+--COMMA--,bring me down --COMMA-- I,2
+--COMMA--,Bring me down --COMMA-- can't,1
+--COMMA--,down ( Happy --COMMA-- happy,2
+--COMMA--,Happy --COMMA-- happy --COMMA-- happy,4
+--COMMA--,happy --COMMA-- happy --COMMA-- happy,4
+--COMMA--,nothing ( Happy --COMMA-- happy,2
+--COMMA--,Bring me down --COMMA-- my,1
+--COMMA--,Bring me down --COMMA-- I,1
+--COMMA--,you ( ayy --COMMA-- ayy,1
+--COMMA--,ayy --COMMA-- ayy --COMMA-- ayy,1
+--COMMA--,she's here --COMMA-- you,1
+--COMMA--,the air --COMMA-- like,1
+--COMMA--,don't care --COMMA-- baby,1
+--COMMA--,you got --COMMA-- don't,1
+--COMMA--,do Uh --COMMA-- bring,2
+--COMMA--,Can't nothing --COMMA-- bring,3
+--COMMA--,me down --COMMA-- I,3
+--COMMA--,me down --COMMA-- can't,1
+--COMMA--,( Happy --COMMA-- happy,4
+--COMMA--,--COMMA-- happy --COMMA-- happy,8
+--COMMA--,me down --COMMA-- my,1
+--COMMA--,( ayy --COMMA-- ayy,1
+--COMMA--,--COMMA-- ayy --COMMA-- ayy,1
+--COMMA--,here --COMMA-- you,1
+--COMMA--,air --COMMA-- like,1
+--COMMA--,care --COMMA-- baby,1
+--COMMA--,got --COMMA-- don't,1
+--COMMA--,Uh --COMMA-- bring,2
+--COMMA--,nothing --COMMA-- bring,3
+--COMMA--,down --COMMA-- I,3
+--COMMA--,down --COMMA-- can't,1
+--COMMA--,Happy --COMMA-- happy,4
+--COMMA--,happy --COMMA-- happy,8
+--COMMA--,down --COMMA-- my,1
+--COMMA--,ayy --COMMA-- ayy,2
+--COMMA--,--COMMA-- you,1
+--COMMA--,--COMMA-- like,1
+--COMMA--,--COMMA-- baby,1
+--COMMA--,--COMMA-- don't,1
+--COMMA--,--COMMA-- bring,5
+--COMMA--,--COMMA-- I,3
+--COMMA--,--COMMA-- can't,1
+--COMMA--,--COMMA-- happy,12
+--COMMA--,--COMMA-- my,1
+--COMMA--,--COMMA-- ayy,2
+wanna,that's what you wanna do,6
+wanna,what you wanna do,6
+wanna,you wanna do,6
+wanna,wanna do,6
+I'm,take a break I'm a,1
+I'm,Huh ( Because I'm happy,1
+I'm,roof ( Because I'm happy,6
+I'm,truth ( Because I'm happy,6
+I'm,you ( Because I'm happy,4
+I'm,) ( Because I'm happy,2
+I'm,a break I'm a,1
+I'm,( Because I'm happy,19
+I'm,break I'm a,1
+I'm,Because I'm happy,19
+I'm,I'm a,1
+I'm,I'm happy,19
+Here,you wanna do Here come,1
+Here,wanna do Here come,1
+Here,do Here come,1
+Here,Here come,1
+crazy,It might seem crazy what,1
+crazy,might seem crazy what,1
+crazy,seem crazy what,1
+crazy,crazy what,1
+care,like I don't care --COMMA--,1
+care,I don't care --COMMA--,1
+care,don't care --COMMA--,1
+care,care --COMMA--,1
+ayy,to you ( ayy --COMMA--,1
+ayy,( ayy --COMMA-- ayy --COMMA--,1
+ayy,--COMMA-- ayy --COMMA-- ayy ),1
+ayy,you ( ayy --COMMA--,1
+ayy,ayy --COMMA-- ayy --COMMA--,1
+ayy,ayy --COMMA-- ayy ),1
+ayy,( ayy --COMMA--,1
+ayy,--COMMA-- ayy --COMMA--,1
+ayy,--COMMA-- ayy ),1
+ayy,ayy --COMMA--,2
+ayy,ayy ),1
+be,warn you I'll be just,1
+be,you I'll be just,1
+be,I'll be just,1
+be,be just,1
+probably,Well I should probably warn,1
+probably,I should probably warn,1
+probably,should probably warn,1
+probably,probably warn,1
+I,seem crazy what I am,1
+I,air --COMMA-- like I don't,1
+I,Yeah ) Well I should,1
+I,me down --COMMA-- I said,3
+I,crazy what I am,1
+I,--COMMA-- like I don't,1
+I,) Well I should,1
+I,down --COMMA-- I said,3
+I,what I am,1
+I,like I don't,1
+I,Well I should,1
+I,--COMMA-- I said,3
+I,I am,1
+I,I don't,1
+I,I should,1
+I,I said,3
+air,I'm a hot air balloon,1
+air,space With the air --COMMA--,1
+air,a hot air balloon,1
+air,With the air --COMMA--,1
+air,hot air balloon,1
+air,the air --COMMA--,1
+air,air balloon,1
+air,air --COMMA--,1
+talking,come bad news talking this,1
+talking,bad news talking this,1
+talking,news talking this,1
+talking,talking this,1
+It,It might,1
+hot,break I'm a hot air,1
+hot,I'm a hot air,1
+hot,a hot air,1
+hot,hot air,1
+seem,It might seem crazy,1
+seem,might seem crazy,1
+seem,seem crazy,1
+too,down My level's too high,2
+too,--COMMA-- my level's too high,1
+too,My level's too high,2
+too,my level's too high,1
+too,level's too high,3
+too,too high,3
+by,care --COMMA-- baby by the,1
+by,--COMMA-- baby by the,1
+by,baby by the,1
+by,by the,1
+Clap,I'm happy ) Clap along,19
+Clap,time Here's why Clap along,1
+Clap,--COMMA-- I said Clap along,2
+Clap,you wanna do Clap along,2
+Clap,happy ) Clap along,19
+Clap,Here's why Clap along,1
+Clap,I said Clap along,2
+Clap,wanna do Clap along,2
+Clap,) Clap along,19
+Clap,why Clap along,1
+Clap,said Clap along,2
+Clap,do Clap along,2
+Clap,Clap along,24
+she's,to say Sunshine she's here,1
+she's,say Sunshine she's here,1
+she's,Sunshine she's here,1
+she's,she's here,1
+can't,me down --COMMA-- can't nothing,1
+can't,down --COMMA-- can't nothing,1
+can't,--COMMA-- can't nothing,1
+can't,can't nothing,1
+a,you can take a break,1
+a,a break I'm a hot,1
+a,you feel like a room,6
+a,a room without a roof,6
+a,can take a break,1
+a,break I'm a hot,1
+a,feel like a room,6
+a,room without a roof,6
+a,take a break,1
+a,I'm a hot,1
+a,like a room,6
+a,without a roof,6
+a,a break,1
+a,a hot,1
+a,a room,6
+a,a roof,6
+break,can take a break I'm,1
+break,take a break I'm,1
+break,a break I'm,1
+break,break I'm,1
+could,air balloon that could go,1
+could,balloon that could go,1
+could,that could go,1
+could,could go,1
+the,to space With the air,1
+the,--COMMA-- baby by the way,1
+the,like happiness is the truth,6
+the,space With the air,1
+the,baby by the way,1
+the,happiness is the truth,6
+the,With the air,1
+the,by the way,1
+the,is the truth,6
+the,the air,1
+the,the way,1
+the,the truth,6
+Yeah,and that ( Yeah ),1
+Yeah,hold back ( Yeah ),1
+Yeah,just fine ( Yeah ),1
+Yeah,that ( Yeah ),1
+Yeah,back ( Yeah ),1
+Yeah,fine ( Yeah ),1
+Yeah,( Yeah ),3
+Yeah,Yeah ),3
+to,I am 'bout to say,1
+to,that could go to space,1
+to,what happiness is to you,6
+to,) No offence to you,1
+to,level's too high to bring,2
+to,am 'bout to say,1
+to,could go to space,1
+to,happiness is to you,6
+to,No offence to you,1
+to,too high to bring,2
+to,'bout to say,1
+to,go to space,1
+to,is to you,6
+to,offence to you,1
+to,high to bring,2
+to,to say,1
+to,to space,1
+to,to you,7
+to,to bring,2
+feel,along if you feel like,18
+feel,if you feel like,18
+feel,you feel like,18
+feel,feel like,18
+do,what you wanna do Here,1
+do,what you wanna do Uh,2
+do,what you wanna do Clap,2
+do,what you wanna do Come,1
+do,you wanna do Here,1
+do,you wanna do Uh,2
+do,you wanna do Clap,2
+do,you wanna do Come,1
+do,wanna do Here,1
+do,wanna do Uh,2
+do,wanna do Clap,2
+do,wanna do Come,1
+do,do Here,1
+do,do Uh,2
+do,do Clap,2
+do,do Come,1
+got,me all you got --COMMA--,1
+got,all you got --COMMA--,1
+got,you got --COMMA--,1
+got,got --COMMA--,1
+down,--COMMA-- bring me down Can't,1
+down,--COMMA-- bring me down My,1
+down,to bring me down Can't,2
+down,--COMMA-- bring me down --COMMA--,2
+down,said Bring me down --COMMA--,1
+down,nothing Bring me down My,1
+down,--COMMA-- bring me down (,1
+down,) Bring me down --COMMA--,2
+down,To bring me down (,1
+down,bring me down Can't,3
+down,bring me down My,1
+down,bring me down --COMMA--,2
+down,Bring me down --COMMA--,3
+down,Bring me down My,1
+down,bring me down (,2
+down,me down Can't,3
+down,me down My,2
+down,me down --COMMA--,5
+down,me down (,2
+down,down Can't,3
+down,down My,2
+down,down --COMMA--,5
+down,down (,2
+space,could go to space With,1
+space,go to space With,1
+space,to space With,1
+space,space With,1
+hold,got --COMMA-- don't hold back,1
+hold,--COMMA-- don't hold back,1
+hold,don't hold back,1
+hold,hold back,1
+that,hot air balloon that could,1
+that,talking this and that (,1
+that,air balloon that could,1
+that,this and that (,1
+that,balloon that could,1
+that,and that (,1
+that,that could,1
+that,that (,1
+high,My level's too high to,2
+high,my level's too high To,1
+high,level's too high to,2
+high,level's too high To,1
+high,too high to,2
+high,too high To,1
+high,high to,2
+high,high To,1
+fine,I'll be just fine (,1
+fine,be just fine (,1
+fine,just fine (,1
+fine,fine (,1
+me,) Well give me all,1
+me,Uh --COMMA-- bring me down,2
+me,nothing --COMMA-- bring me down,3
+me,high to bring me down,2
+me,I said Bring me down,1
+me,can't nothing Bring me down,1
+me,happy ) Bring me down,2
+me,high To bring me down,1
+me,Well give me all,1
+me,--COMMA-- bring me down,5
+me,to bring me down,2
+me,said Bring me down,1
+me,nothing Bring me down,1
+me,) Bring me down,2
+me,To bring me down,1
+me,give me all,1
+me,bring me down,8
+me,Bring me down,4
+me,me all,1
+me,me down,12
+should,) Well I should probably,1
+should,Well I should probably,1
+should,I should probably,1
+should,should probably,1
+level's,me down My level's too,2
+level's,down --COMMA-- my level's too,1
+level's,down My level's too,2
+level's,--COMMA-- my level's too,1
+level's,My level's too,2
+level's,my level's too,1
+level's,level's too,3
+To,level's too high To bring,1
+To,too high To bring,1
+To,high To bring,1
+To,To bring,1
+Here's,waste your time Here's why,1
+Here's,your time Here's why,1
+Here's,time Here's why,1
+Here's,Here's why,1
+all,Well give me all you,1
+all,give me all you,1
+all,me all you,1
+all,all you,1
+waste,to you don't waste your,1
+waste,you don't waste your,1
+waste,don't waste your,1
+waste,waste your,1
+like,the air --COMMA-- like I,1
+like,if you feel like a,6
+like,if you feel like happiness,6
+like,if you feel like that's,6
+like,air --COMMA-- like I,1
+like,you feel like a,6
+like,you feel like happiness,6
+like,you feel like that's,6
+like,--COMMA-- like I,1
+like,feel like a,6
+like,feel like happiness,6
+like,feel like that's,6
+like,like I,1
+like,like a,6
+like,like happiness,6
+like,like that's,6
+Bring,--COMMA-- I said Bring me,1
+Bring,--COMMA-- can't nothing Bring me,1
+Bring,--COMMA-- happy ) Bring me,2
+Bring,I said Bring me,1
+Bring,can't nothing Bring me,1
+Bring,happy ) Bring me,2
+Bring,said Bring me,1
+Bring,nothing Bring me,1
+Bring,) Bring me,2
+Bring,Bring me,4
+might,It might seem,1
+might,might seem,1
+this,bad news talking this and,1
+this,news talking this and,1
+this,talking this and,1
+this,this and,1
+my,me down --COMMA-- my level's,1
+my,down --COMMA-- my level's,1
+my,--COMMA-- my level's,1
+my,my level's,1
+take,--COMMA-- you can take a,1
+take,you can take a,1
+take,can take a,1
+take,take a,1
+warn,I should probably warn you,1
+warn,should probably warn you,1
+warn,probably warn you,1
+warn,warn you,1
+Because,way Huh ( Because I'm,1
+Because,a roof ( Because I'm,6
+Because,the truth ( Because I'm,6
+Because,to you ( Because I'm,4
+Because,ayy ) ( Because I'm,1
+Because,hey ) ( Because I'm,1
+Because,Huh ( Because I'm,1
+Because,roof ( Because I'm,6
+Because,truth ( Because I'm,6
+Because,you ( Because I'm,4
+Because,) ( Because I'm,2
+Because,( Because I'm,19
+Because,Because I'm,19
+Uh,you wanna do Uh --COMMA--,2
+Uh,wanna do Uh --COMMA--,2
+Uh,do Uh --COMMA--,2
+Uh,Uh --COMMA--,2
+know,along if you know what,6
+know,if you know what,6
+know,you know what,6
+know,know what,6
+here,say Sunshine she's here --COMMA--,1
+here,Sunshine she's here --COMMA--,1
+here,she's here --COMMA--,1
+here,here --COMMA--,1
+Well,( Yeah ) Well give,1
+Well,( Yeah ) Well I,1
+Well,Yeah ) Well give,1
+Well,Yeah ) Well I,1
+Well,) Well give,1
+Well,) Well I,1
+Well,Well give,1
+Well,Well I,1
+back,--COMMA-- don't hold back (,1
+back,don't hold back (,1
+back,hold back (,1
+back,back (,1
+why,your time Here's why Clap,1
+why,time Here's why Clap,1
+why,Here's why Clap,1
+why,why Clap,1
+Sunshine,'bout to say Sunshine she's,1
+Sunshine,to say Sunshine she's,1
+Sunshine,say Sunshine she's,1
+Sunshine,Sunshine she's,1
+that's,you feel like that's what,6
+that's,feel like that's what,6
+that's,like that's what,6
+that's,that's what,6
+My,bring me down My level's,1
+My,Bring me down My level's,1
+My,me down My level's,2
+My,down My level's,2
+My,My level's,2
+With,go to space With the,1
+With,to space With the,1
+With,space With the,1
+With,With the,1
+can,here --COMMA-- you can take,1
+can,--COMMA-- you can take,1
+can,you can take,1
+can,can take,1
+along,happy ) Clap along if,19
+along,Here's why Clap along if,1
+along,I said Clap along if,2
+along,wanna do Clap along if,2
+along,) Clap along if,19
+along,why Clap along if,1
+along,said Clap along if,2
+along,do Clap along if,2
+along,Clap along if,24
+along,along if,24
+happiness,you feel like happiness is,6
+happiness,you know what happiness is,6
+happiness,feel like happiness is,6
+happiness,know what happiness is,6
+happiness,like happiness is,6
+happiness,what happiness is,6
+happiness,happiness is,12
+and,news talking this and that,1
+and,talking this and that,1
+and,this and that,1
+and,and that,1
+Huh,by the way Huh (,1
+Huh,the way Huh (,1
+Huh,way Huh (,1
+Huh,Huh (,1
+said,down --COMMA-- I said Bring,1
+said,down --COMMA-- I said Clap,2
+said,--COMMA-- I said Bring,1
+said,--COMMA-- I said Clap,2
+said,I said Bring,1
+said,I said Clap,2
+said,said Bring,1
+said,said Clap,2
+just,you I'll be just fine,1
+just,I'll be just fine,1
+just,be just fine,1
+just,just fine,1
+I'll,probably warn you I'll be,1
+I'll,warn you I'll be,1
+I'll,you I'll be,1
+I'll,I'll be,1
+news,Here come bad news talking,1
+news,come bad news talking,1
+news,bad news talking,1
+news,news talking,1
+roof,room without a roof (,6
+roof,without a roof (,6
+roof,a roof (,6
+roof,roof (,6
+No,( Yeah ) No offence,1
+No,Yeah ) No offence,1
+No,) No offence,1
+No,No offence,1
+balloon,a hot air balloon that,1
+balloon,hot air balloon that,1
+balloon,air balloon that,1
+balloon,balloon that,1
+Happy,me down ( Happy --COMMA--,2
+Happy,Can't nothing ( Happy --COMMA--,2
+Happy,down ( Happy --COMMA--,2
+Happy,nothing ( Happy --COMMA--,2
+Happy,( Happy --COMMA--,4
+Happy,Happy --COMMA--,4
+go,balloon that could go to,1
+go,that could go to,1
+go,could go to,1
+go,go to,1
+say,am 'bout to say Sunshine,1
+say,'bout to say Sunshine,1
+say,to say Sunshine,1
+say,say Sunshine,1
+way,baby by the way Huh,1
+way,by the way Huh,1
+way,the way Huh,1
+way,way Huh,1
+room,feel like a room without,6
+room,like a room without,6
+room,a room without,6
+room,room without,6
+what,might seem crazy what I,1
+what,if you know what happiness,6
+what,feel like that's what you,6
+what,seem crazy what I,1
+what,you know what happiness,6
+what,like that's what you,6
+what,crazy what I,1
+what,know what happiness,6
+what,that's what you,6
+what,what I,1
+what,what happiness,6
+what,what you,6
+truth,happiness is the truth (,6
+truth,is the truth (,6
+truth,the truth (,6
+truth,truth (,6
+baby,don't care --COMMA-- baby by,1
+baby,care --COMMA-- baby by,1
+baby,--COMMA-- baby by,1
+baby,baby by,1
+time,don't waste your time Here's,1
+time,waste your time Here's,1
+time,your time Here's,1
+time,time Here's,1

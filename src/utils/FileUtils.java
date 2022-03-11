@@ -94,7 +94,7 @@ public class FileUtils {
     /**
      * This method creates a file at the desired path and creates a FileWriter object to write into it
      * the only thing left to do is store the FileWriter in a variable:
-     * FileWriter fw = writeToFile("example");
+     * FileWriter fw = writeFile("example");
      * and the use
      * fw.write("lorem ipsum");
      * to write to the file.

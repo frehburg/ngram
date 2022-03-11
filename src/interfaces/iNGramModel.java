@@ -8,8 +8,10 @@ import java.util.List;
  * @param <G> class of words
  */
 public interface iNGramModel<H, G> {
-    void constructModel(H text, int n);
+    void constructModel(H text);
+    void addToModel(H text);
     Object getPicklist(H context);
     Object getPicklist(H context, int maxLength);
-    void insert(iNGramInstance<H,G> w);
+    void writeModel(String path);
+    //static iNGramModel<H,G> readModel(String path);
 }

@@ -26,6 +26,12 @@ public final class NLPSentenceSplit {
                 case '!':
                 case '?':
                 case ';':
+                case '{':
+                case '}':
+                case '[':
+                case ']':
+                case '<':
+                case '>':
                     if(!currentWord.equals(""))split.add(currentWord);
                     currentWord = "";
                     String symbol = ""+currentChar;

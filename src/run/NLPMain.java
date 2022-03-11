@@ -10,9 +10,11 @@ import java.util.Scanner;
 public class NLPMain {
     public static boolean DEBUG = true;
     public static void main(String[] args) {
-        String input = allLinesOneString("res/ilove.txt");
+        String input = allLinesOneString("res/happy.txt");
         NGramModel m = new NGramModel(input, 5);
-        List<String> picklist = m.getPicklist(NLPSentenceSplit.splitText("Bobba fat loves spending time with my family and"), 5);
+        m.writeModel("res/modelNLP_Happy_5.csv");
+        NGramModel m1 = NGramModel.readModel("res/modelNLP_Happy_5.csv");
+        List<String> picklist = m1.getPicklist(NLPSentenceSplit.splitText("(Because"), 5);
         if(DEBUG)System.out.println("PICKLIST: ");
         if(DEBUG)picklist.forEach(s -> System.out.println(s));
     }
