@@ -1,11 +1,9 @@
 package run;
 
-import model.nlp_case.NGramInstance;
+
 import model.nlp_case.NGramModel;
 import split.NLPSentenceSplit;
 import utils.FileUtils;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +12,7 @@ public class NLPMain {
     public static void main(String[] args) {
         String input = allLinesOneString("res/happy.txt");
         NGramModel m = new NGramModel(input, 5);
-        List<String> picklist = m.getPicklist("if", 5);
+        List<String> picklist = m.getPicklist(NLPSentenceSplit.splitText("if"), 5);
         if(DEBUG)System.out.println("PICKLIST: ");
         if(DEBUG)picklist.forEach(s -> System.out.println(s));
     }

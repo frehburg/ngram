@@ -10,7 +10,7 @@ import java.util.*;
  * In this case the key is the second to last word, to predict the next one
  * possible bcs at least taking 2-grams
  */
-public class NGramModel implements iNGramModel<String,String> {
+public class NGramModel implements iNGramModel<List<String>,String> {
     public static boolean DEBUG = true;
     private final String text;
     private final int N;
@@ -29,16 +29,15 @@ public class NGramModel implements iNGramModel<String,String> {
                 return o2.getMultiplicity() - o1.getMultiplicity();
             }
         };
-        constructModel(text, N);
+        if(DEBUG)System.out.println(text);
+        List<String> split = NLPSentenceSplit.splitText(text);
+        if(DEBUG)split.forEach(s -> System.out.println(s));
+        constructModel(split, N);
     }
     @Override
-    public void constructModel(String text, int N) {
-        if(DEBUG)System.out.println(text);
-        List<String> split = nlpSplit.splitText(text);
-        if(DEBUG)split.forEach(s -> System.out.println(s));
-
+    public void constructModel(List<String> text, int N) {
         // n is the length of the created n grams
-        createNGramInstances(split, true);
+        createNGramInstances(text, true);
         System.out.println("Model:"+toString());
     }
 
@@ -83,10 +82,9 @@ public class NGramModel implements iNGramModel<String,String> {
     }*/
 
     @Override
-    public List<String> getPicklist(String context) {
+    public List<String> getPicklist(List<String> context) {
         //TODO add checking of whole background, not just last word
-        List<String> contextSplit = nlpSplit.splitText(context);
-        String key = contextSplit.get(contextSplit.size() - 1);
+        String key = context.get(context.size() - 1);
         List<NGramInstance> picklist = dictionary.get(key);
         picklist.sort(instanceComparator);
         ArrayList<String> stringPicklist = new ArrayList<>();
@@ -101,7 +99,7 @@ public class NGramModel implements iNGramModel<String,String> {
     }
 
     @Override
-    public List<String> getPicklist(String context, int maxLength) {
+    public List<String> getPicklist(List<String> context, int maxLength) {
         List<String> fullPicklist = getPicklist(context);
         int picklistSize = fullPicklist.size() - 1;
         //if the list is shorter than maxLength, the whole list is returned, else only a sublist of size maxLength
@@ -116,7 +114,7 @@ public class NGramModel implements iNGramModel<String,String> {
      *
      * The method keeps a list of the ngrams with the same key as instance: instancesWithSameKey
      */
-    public void insert(iNGramInstance<String> instance) {
+    public void insert(iNGramInstance<List<String>,String> instance) {
         NGramInstance convertedInstance = (NGramInstance) instance;
 
         String wsKey = convertedInstance.getKey();

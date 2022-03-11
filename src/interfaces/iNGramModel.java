@@ -11,5 +11,5 @@ public interface iNGramModel<H, G> {
     void constructModel(H text, int n);
     Object getPicklist(H context);
     Object getPicklist(H context, int maxLength);
-    void insert(iNGramInstance<G> w);
+    void insert(iNGramInstance<H,G> w);
 }

@@ -5,7 +5,7 @@ import interfaces.iNGramInstance;
 
 import java.util.List;
 
-public class NGramInstance implements iNGramInstance<String> {
+public class NGramInstance implements iNGramInstance<List<String>,String> {
     private int multiplicity;
     private List<String> words;
     private final String key;
@@ -41,7 +41,7 @@ public class NGramInstance implements iNGramInstance<String> {
     }
 
     @Override
-    public boolean equals(iNGramInstance<String> otherInstance) {
+    public boolean equals(iNGramInstance<List<String>,String> otherInstance) {
         List<String> otherWords = otherInstance.getWords();
         if(words.size() != otherWords.size()) {
             return false;
@@ -58,6 +58,12 @@ public class NGramInstance implements iNGramInstance<String> {
     @Override
     public boolean isWordEqual(String w1, String w2) {
         return w1.equals(w2);
+    }
+
+    @Override
+    public boolean contains(List<String> context) {
+        //TODO
+        return false;
     }
 
     public String toString() {
