@@ -2,7 +2,7 @@ package utils;
 
 import java.util.List;
 
-public final class NumberMatchingTailElements {
+public final class MatchingTailElements {
     /**
      * Returns the number of matching elements starting at the end of the list.
      * E.g.1: Same last element
@@ -22,18 +22,19 @@ public final class NumberMatchingTailElements {
      * @param <F>
      * @return
      */
-    public static <F> int get(List<F> superlist, List<F> sublist) {
+    public static <F> int count(List<F> superlist, List<F> sublist) {
         //0. if one of them is empty, return false
         if(superlist.isEmpty() || sublist.isEmpty())
             return 0;
         //2. Starting at the back, compare the elements of both lists
-        for(int i = 1; i < sublist.size(); i--) {
+        int i;
+        for(i = 1; i < sublist.size() && i < superlist.size(); i++) {
             F superCur = superlist.get(superlist.size() - i), subCur = sublist.get(sublist.size() - i);
             //check if is NOT the same and return one less than i
             if(!superCur.equals(subCur)) {
                 return i - 1;
             }
         }
-        return 0;
+        return i;
     }
 }

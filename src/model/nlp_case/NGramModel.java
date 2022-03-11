@@ -3,6 +3,8 @@ package model.nlp_case;
 import interfaces.iNGramInstance;
 import interfaces.iNGramModel;
 import split.NLPSentenceSplit;
+import utils.MatchingTailElements;
+import utils.Pair;
 
 import java.util.*;
 
@@ -38,6 +40,7 @@ public class NGramModel implements iNGramModel<List<String>,String> {
     public void constructModel(List<String> text, int N) {
         // n is the length of the created n grams
         createNGramInstances(text, true);
+        //TODO: calculate the overall multiplicities of the key for each instance
         System.out.println("Model:"+toString());
     }
 
@@ -64,35 +67,78 @@ public class NGramModel implements iNGramModel<List<String>,String> {
         return nGramInstances;
     }
 
-    /*public List<NGramInstance> createContextNGramInstances(List<String> contextSplit) {
-        List<NGramInstance> contextNGramInstances = new ArrayList<>();
-        for(int n = N; n > 1; n--) {
-            // go through the list of all words and create n grams of specified length
-            int endSubList = contextSplit.size()-1;
-            int startSubList = endSubList-n;
-            if(startSubList < 0)
-                continue;
-            List<String> currentWords = contextSplit.subList(startSubList,endSubList);
-            // create a new ngram instance here
-            NGramInstance current = new NGramInstance(currentWords);
-            //insert it
-            contextNGramInstances.add(current);
-        }
-        return contextNGramInstances;
-    }*/
-
     @Override
     public List<String> getPicklist(List<String> context) {
-        //TODO add checking of whole background, not just last word
+        //this first fetches the picklist
         String key = context.get(context.size() - 1);
-        List<NGramInstance> picklist = dictionary.get(key);
-        picklist.sort(instanceComparator);
-        ArrayList<String> stringPicklist = new ArrayList<>();
-        for(NGramInstance instance : picklist) {
-            //TODO: use tuple with rec and multiplicity as return; for now append multiplicity to string
-            stringPicklist.add(instance.getLast() + " Multiplicity: " + instance.getMultiplicity());
+        List<NGramInstance> picklist = dictionary.getOrDefault(key,new ArrayList<>());
+        if(picklist.isEmpty()) {
+            //no predictions found
+            return new ArrayList<>();
         }
-        //TODO: combine same recommendations into one
+        //this list also stores the amount of matching words at the end of the ngram with the context
+        List<Pair<NGramInstance,Integer>> matchingCountPicklist = new ArrayList<>();
+        for(NGramInstance instance : picklist) {
+            List<String> instanceWords = instance.getWords();
+            //cut off the prediction before matching to the context
+            instanceWords = instanceWords.subList(0,instanceWords.size() - 1);
+            int matchingTailElements = MatchingTailElements.count(instanceWords,context);
+            if(matchingTailElements > 0) {
+                matchingCountPicklist.add(new Pair<>(instance,matchingTailElements));
+            }
+        }
+        //now unite all ngrams with the same prediction into one
+        //sort into hashmap by prediction
+        HashMap<String,List<Pair<NGramInstance,Integer>>> predictionMatch = new HashMap<>();
+        for(Pair<NGramInstance,Integer> p : matchingCountPicklist) {
+            String pKey = p.getR().getLast();
+            List<Pair<NGramInstance,Integer>> samePredictionAsP;
+            if(predictionMatch.containsKey(pKey)) {
+                samePredictionAsP = predictionMatch.get(pKey);
+                samePredictionAsP.add(p);
+            } else {
+                samePredictionAsP = new ArrayList<>();
+                samePredictionAsP.add(p);
+            }
+            predictionMatch.put(pKey,samePredictionAsP);
+        }
+        //for each stored prediction, sum up the multiplicities & take the highest # matching words to create a new prediction
+        Set<Map.Entry<String, List<Pair<NGramInstance, Integer>>>> pmEntrySet = predictionMatch.entrySet();
+        // wipe this clean to rewrite to it with united instances
+        matchingCountPicklist = new ArrayList<>();
+        for(Map.Entry<String, List<Pair<NGramInstance, Integer>>> entry : pmEntrySet) {
+            int pMultiplicity = 0;
+            int maxMatchingWords = 0;
+            String entryPrediction = entry.getKey();
+            List<String> newInstanceWords = Arrays.asList(new String[]{key,entryPrediction});
+            for(Pair<NGramInstance,Integer> p : entry.getValue()) {
+                pMultiplicity += p.getR().getMultiplicity();
+                //if p has more matching words than stored, update, else do nothing
+                maxMatchingWords = p.getS() > maxMatchingWords ? p.getS() : maxMatchingWords;
+            }
+            matchingCountPicklist.add(new Pair<>(new NGramInstance(newInstanceWords,pMultiplicity), maxMatchingWords));
+        }
+        //sort the picklist
+        matchingCountPicklist.sort(new Comparator<Pair<NGramInstance, Integer>>() {
+            @Override
+            public int compare(Pair<NGramInstance, Integer> p1, Pair<NGramInstance, Integer> p2) {
+                int multiplicity1 = p1.getR().getMultiplicity(), multiplicity2 = p2.getR().getMultiplicity();
+                int diffMultiplicity = multiplicity2 - multiplicity1;
+                if(diffMultiplicity == 0) {
+                    //need to check matching words, since both have the same multiplicity
+                    int matchingWords1 = p1.getS(), matchingWords2 = p2.getS();
+                    int diffMatchingwords = matchingWords2 - matchingWords1;
+                    return diffMatchingwords;
+                } else {
+                    return diffMultiplicity;
+                }
+            }
+        });
+        ArrayList<String> stringPicklist = new ArrayList<>();
+        for(Pair<NGramInstance,Integer> p : matchingCountPicklist) {
+            //TODO: use tuple with rec and multiplicity as return; for now append multiplicity to string
+            stringPicklist.add("Prediction: \""+p.getR().getLast() + "\", Multiplicity: " + p.getR().getMultiplicity() + " & Matching words w/ context: " + p.getS());
+        }
         if(DEBUG)System.out.println("FULL PICKLIST: ");
         if(DEBUG)picklist.forEach(s -> System.out.println(s));
         return stringPicklist;

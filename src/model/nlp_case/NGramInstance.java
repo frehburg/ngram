@@ -15,6 +15,13 @@ public class NGramInstance implements iNGramInstance<List<String>,String> {
         this.multiplicity = 1;
         key = words.get(words.size() - 2);
     }
+
+    public NGramInstance(List<String> words, int multiplicity) {
+        this.words = words;
+        this.multiplicity = multiplicity;
+        key = words.get(words.size() - 2);
+    }
+
     @Override
     public List<String> getWords() {
         return words;
