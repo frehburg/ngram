@@ -25,6 +25,8 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
     ///
     private static final String COMMA_REPLACEMENT = "--COMMA--";
+    private static final String COMMA = ",";
+    private static final String EMPTY_STRING = "";
 
     public NGramModelLudii(String text, int N) {
         this.text = text;
@@ -222,10 +224,16 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
             fw.write("KEY,WORDS,MULTIPLICITY");
             for(Map.Entry<String, List<NGramInstanceLudii>> entry : dictionaryEntrySet) {
                 String key = entry.getKey();
+                //csv file splits the strings otherwise
+                key = key.replaceAll(COMMA,COMMA_REPLACEMENT);
+                boolean first = true;
+
+                //for instances with the same key
                 for(NGramInstanceLudii instance : entry.getValue()) {
-                    String wordsAsString = "";
+                    String wordsAsString = EMPTY_STRING;
                     List<String> words = instance.getWords();
                     int i = 0;
+                    //for the words of each instance
                     for(String word : words) {
                         wordsAsString += word;
                         if(i < words.size() - 1)
@@ -233,9 +241,14 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
                         i++;
                     }
-                    key = key.replaceAll(",",COMMA_REPLACEMENT);
-                    wordsAsString = wordsAsString.replaceAll(",",COMMA_REPLACEMENT);
-                    fw.write("\n"+key+","+wordsAsString+","+instance.getMultiplicity());
+                    wordsAsString = wordsAsString.replaceAll(COMMA,COMMA_REPLACEMENT);
+                    fw.write("\n"+key+COMMA+wordsAsString+COMMA+instance.getMultiplicity());
+
+                    //makes sure the key is only written on the first occurrence
+                    if(first) {
+                        first = false;
+                        key = EMPTY_STRING;
+                    }
                 }
             }
 
@@ -248,22 +261,36 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
     public static NGramModelLudii readModel(String path) {
         Scanner sc = FileUtils.readFile(path);
-        String NAsString = sc.nextLine();//N
+        String nAsString = sc.nextLine();//N as a string
         //remove two commas at the end
-        NAsString = NAsString.replaceAll(",,","");
-        int N = Integer.parseInt(NAsString);
+        nAsString = nAsString.replaceAll(",,","");
+        int N = Integer.parseInt(nAsString);
         sc.nextLine();//to skip the header
         HashMap<String, List<NGramInstanceLudii>> dictionary = new HashMap<>();
         List<NGramInstanceLudii> value = new ArrayList<>();
+
+        //since the csv is compressed, we keep the last string for the next instances
+        String lastKey = EMPTY_STRING;
+
         while(sc.hasNextLine()) {
             String line = sc.nextLine();
-            String[] split = line.split(",");
+            System.out.println("--------------------------");
+            System.out.println(line);
+            String[] split = line.split(COMMA);
+            System.out.println("|"+split[0]+"|"+ split[0].equals(EMPTY_STRING));
             String key = split[0];
-            key = key.replaceAll(COMMA_REPLACEMENT,",");
+            key = key.replaceAll(COMMA_REPLACEMENT,COMMA);
+
+            if(key.equals(EMPTY_STRING)) {
+                key = lastKey;
+            } else if(!key.equals(EMPTY_STRING)) {
+                lastKey = key;
+            }
+
             String wordsAsString = split[1];
             String[] wordsAsArray = wordsAsString.split(" ");
             List<String> words = Arrays.asList(wordsAsArray);
-            words.forEach(s -> s = s.replaceAll(COMMA_REPLACEMENT,","));
+            words.forEach(s -> s = s.replaceAll(COMMA_REPLACEMENT,COMMA));
             String multiplicityAsString = split[2];
             int multiplicity = Integer.parseInt(multiplicityAsString);
             if(dictionary.containsKey(key)) {

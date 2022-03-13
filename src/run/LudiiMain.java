@@ -1,12 +1,10 @@
 package run;
 
 import model.Ludii.NGramModelLudii;
-import model.nlp_case.NGramModel;
 import split.NLPSentenceSplit;
 import utils.FileUtils;
 import utils.ReadAllGameFiles;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +14,7 @@ public class LudiiMain {
         //gather all lud files
         List<String> locations = ReadAllGameFiles.findAllGames("res/Ludii/lud");
         String input = allLinesOneString(locations.get(0));
-        NGramModelLudii m = new NGramModelLudii(input, 7);
+        NGramModelLudii m = new NGramModelLudii(input, 2);
         locations = locations.subList(1, locations.size() - 1);
         for(String path : locations) {
             System.out.println("Adding game: " + path);
@@ -25,8 +23,9 @@ public class LudiiMain {
             m.addToModel(split);
         }
 
-        m.writeModel("res/Ludii7Model.csv");
-
+        m.writeModel("res/Ludii2Model.csv");
+        NGramModelLudii m1 = NGramModelLudii.readModel("res/Ludii2Model.csv");
+        m1.writeModel("res/Ludii2Model - Copy.csv");
         /*List<String> picklist = m.getPicklist(NLPSentenceSplit.splitText("Bobba fat loves spending time with my family and"), 5);
         if(DEBUG)System.out.println("PICKLIST: ");
         if(DEBUG)picklist.forEach(s -> System.out.println(s));*/
