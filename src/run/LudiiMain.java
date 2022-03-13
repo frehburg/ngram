@@ -24,7 +24,8 @@ public class LudiiMain {
         }
 
         m.writeModel("res/Ludii2Model.csv");
-
+        NGramModelLudii m1 = NGramModelLudii.readModel("res/Ludii2Model.csv");
+        m1.writeModel("res/Ludii2Model - Copy.csv");
         /*List<String> picklist = m.getPicklist(NLPSentenceSplit.splitText("Bobba fat loves spending time with my family and"), 5);
         if(DEBUG)System.out.println("PICKLIST: ");
         if(DEBUG)picklist.forEach(s -> System.out.println(s));*/
