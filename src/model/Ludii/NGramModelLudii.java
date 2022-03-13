@@ -25,6 +25,8 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
     ///
     private static final String COMMA_REPLACEMENT = "--COMMA--";
+    private static final String COMMA = ",";
+    private static final String EMPTY_STRING = "";
 
     public NGramModelLudii(String text, int N) {
         this.text = text;
@@ -220,12 +222,23 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
         try {
             fw.write(N+"\n");
             fw.write("KEY,WORDS,MULTIPLICITY");
+            String lastKey = null; //is used to reduce redundant information by checking if the last key is the same as the current
             for(Map.Entry<String, List<NGramInstanceLudii>> entry : dictionaryEntrySet) {
                 String key = entry.getKey();
+                //csv file splits the strings otherwise
+                key = key.replaceAll(COMMA,COMMA_REPLACEMENT);
+                
+                //check if the current key is the same as the last key, if it is set it equal to ""
+                if(key.equals(lastKey)) {
+                    key = EMPTY_STRING;
+                }
+                
+                //for instances with the same key
                 for(NGramInstanceLudii instance : entry.getValue()) {
-                    String wordsAsString = "";
+                    String wordsAsString = EMPTY_STRING;
                     List<String> words = instance.getWords();
                     int i = 0;
+                    //for the words of each instance
                     for(String word : words) {
                         wordsAsString += word;
                         if(i < words.size() - 1)
@@ -233,9 +246,12 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
                         i++;
                     }
-                    key = key.replaceAll(",",COMMA_REPLACEMENT);
-                    wordsAsString = wordsAsString.replaceAll(",",COMMA_REPLACEMENT);
-                    fw.write("\n"+key+","+wordsAsString+","+instance.getMultiplicity());
+                    wordsAsString = wordsAsString.replaceAll(COMMA,COMMA_REPLACEMENT);
+                    fw.write("\n"+key+COMMA+wordsAsString+COMMA+instance.getMultiplicity());
+                    //change lastKey to current key to check for duplicates, if it is not ""
+                    if(!key.equals(EMPTY_STRING)) {
+                        lastKey = key;
+                    }
                 }
             }
 
@@ -248,22 +264,22 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
     public static NGramModelLudii readModel(String path) {
         Scanner sc = FileUtils.readFile(path);
-        String NAsString = sc.nextLine();//N
+        String nAsString = sc.nextLine();//N as a string
         //remove two commas at the end
-        NAsString = NAsString.replaceAll(",,","");
-        int N = Integer.parseInt(NAsString);
+        nAsString = nAsString.replaceAll(",,","");
+        int N = Integer.parseInt(nAsString);
         sc.nextLine();//to skip the header
         HashMap<String, List<NGramInstanceLudii>> dictionary = new HashMap<>();
         List<NGramInstanceLudii> value = new ArrayList<>();
         while(sc.hasNextLine()) {
             String line = sc.nextLine();
-            String[] split = line.split(",");
+            String[] split = line.split(COMMA);
             String key = split[0];
-            key = key.replaceAll(COMMA_REPLACEMENT,",");
+            key = key.replaceAll(COMMA_REPLACEMENT,COMMA);
             String wordsAsString = split[1];
             String[] wordsAsArray = wordsAsString.split(" ");
             List<String> words = Arrays.asList(wordsAsArray);
-            words.forEach(s -> s = s.replaceAll(COMMA_REPLACEMENT,","));
+            words.forEach(s -> s = s.replaceAll(COMMA_REPLACEMENT,COMMA));
             String multiplicityAsString = split[2];
             int multiplicity = Integer.parseInt(multiplicityAsString);
             if(dictionary.containsKey(key)) {
