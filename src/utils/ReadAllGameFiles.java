@@ -29,7 +29,7 @@ public class ReadAllGameFiles {
         ArrayList<File> files = FileUtils.listFilesForFolder(folder);
         ArrayList<String> locations = new ArrayList<>();
         for(File f : files) {
-            String location = FileUtils.reformatPathToRepository(f.getAbsolutePath());
+            String location = f.getAbsolutePath();
             locations.add(location);
             System.out.println(location);
         }

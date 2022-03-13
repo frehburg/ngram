@@ -1,0 +1,4 @@
+2-gram: 14s
+3-gram: 62s
+4-gram: 166s
+5-gram: 340s
