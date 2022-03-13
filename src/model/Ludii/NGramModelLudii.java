@@ -222,17 +222,12 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
         try {
             fw.write(N+"\n");
             fw.write("KEY,WORDS,MULTIPLICITY");
-            String lastKey = null; //is used to reduce redundant information by checking if the last key is the same as the current
             for(Map.Entry<String, List<NGramInstanceLudii>> entry : dictionaryEntrySet) {
                 String key = entry.getKey();
                 //csv file splits the strings otherwise
                 key = key.replaceAll(COMMA,COMMA_REPLACEMENT);
-                
-                //check if the current key is the same as the last key, if it is set it equal to ""
-                if(key.equals(lastKey)) {
-                    key = EMPTY_STRING;
-                }
-                
+                boolean first = true;
+
                 //for instances with the same key
                 for(NGramInstanceLudii instance : entry.getValue()) {
                     String wordsAsString = EMPTY_STRING;
@@ -248,9 +243,11 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
                     }
                     wordsAsString = wordsAsString.replaceAll(COMMA,COMMA_REPLACEMENT);
                     fw.write("\n"+key+COMMA+wordsAsString+COMMA+instance.getMultiplicity());
-                    //change lastKey to current key to check for duplicates, if it is not ""
-                    if(!key.equals(EMPTY_STRING)) {
-                        lastKey = key;
+
+                    //makes sure the key is only written on the first occurrence
+                    if(first) {
+                        first = false;
+                        key = EMPTY_STRING;
                     }
                 }
             }
@@ -271,11 +268,25 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
         sc.nextLine();//to skip the header
         HashMap<String, List<NGramInstanceLudii>> dictionary = new HashMap<>();
         List<NGramInstanceLudii> value = new ArrayList<>();
+
+        //since the csv is compressed, we keep the last string for the next instances
+        String lastKey = EMPTY_STRING;
+
         while(sc.hasNextLine()) {
             String line = sc.nextLine();
+            System.out.println("--------------------------");
+            System.out.println(line);
             String[] split = line.split(COMMA);
+            System.out.println("|"+split[0]+"|"+ split[0].equals(EMPTY_STRING));
             String key = split[0];
             key = key.replaceAll(COMMA_REPLACEMENT,COMMA);
+
+            if(key.equals(EMPTY_STRING)) {
+                key = lastKey;
+            } else if(!key.equals(EMPTY_STRING)) {
+                lastKey = key;
+            }
+
             String wordsAsString = split[1];
             String[] wordsAsArray = wordsAsString.split(" ");
             List<String> words = Arrays.asList(wordsAsArray);
