@@ -1,45 +1,34 @@
 package run;
 
 import model.Ludii.NGramModelLudii;
+import split.LudiiFileCleanup;
 import split.NLPSentenceSplit;
 import utils.FileUtils;
 import utils.ReadAllGameFiles;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class LudiiMain {
     public static boolean DEBUG = true;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //gather all lud files
         List<String> locations = ReadAllGameFiles.findAllGames("res/Ludii/lud");
-        String input = allLinesOneString(locations.get(0));
-        NGramModelLudii m = new NGramModelLudii(input, 2);
+        String input = LudiiFileCleanup.allLinesOneString(locations.get(0));
         locations = locations.subList(1, locations.size() - 1);
         for(String path : locations) {
-            System.out.println("Adding game: " + path);
-            input = allLinesOneString(path);
+            input = LudiiFileCleanup.allLinesOneString(path);
             List<String> split = NLPSentenceSplit.splitText(input);
-            m.addToModel(split);
+            System.out.println("---------------------------------------");
+            System.out.println("Contains metadata: "+split.contains("metadata")+ " contains comments: " + split.contains("//"));
+            System.out.println("+++++++++++++++++");
+            split = LudiiFileCleanup.cleanup(split);
+            System.out.println("Contains metadata: "+split.contains("metadata")+ " contains comments: " + split.contains("//"));
+            FileWriter fw = FileUtils.writeFile(path+"1.txt");
+            fw.write(split.toString());
+            fw.close();
         }
-
-        m.writeModel("res/Ludii2Model.csv");
-        NGramModelLudii m1 = NGramModelLudii.readModel("res/Ludii2Model.csv");
-        m1.writeModel("res/Ludii2Model - Copy.csv");
-        /*List<String> picklist = m.getPicklist(NLPSentenceSplit.splitText("Bobba fat loves spending time with my family and"), 5);
-        if(DEBUG)System.out.println("PICKLIST: ");
-        if(DEBUG)picklist.forEach(s -> System.out.println(s));*/
-    }
-
-    public static String allLinesOneString(String srcContentrootPath) {
-        Scanner sc = FileUtils.readFile(srcContentrootPath);
-        String allLines = "";
-        while(sc.hasNextLine()) {
-            String nextLine = sc.nextLine();
-            allLines += " " + nextLine;
-        }
-        sc.close();
-
-        return allLines;
     }
 }
