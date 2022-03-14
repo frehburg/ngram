@@ -1,6 +1,7 @@
 package split;
 
 import utils.FileUtils;
+import utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,22 @@ public class LudiiFileCleanup {
             }
             //check for comments
             if(!w.contains("//") /* && //TODO: check for weird tab symbol*/) {
+                //check if
+                //a. is collection
+                //a.i.: {}
+                //a.ii: contains ..
+                if(w.contains("..")) {
+                    cleanedUpSplit.add("COLLECTION");
+                    continue;
+                }
+                //b. is number
+                if(StringUtils.isInteger(w)) {
+                    cleanedUpSplit.add("INTEGER");
+                    continue;
+                } else if(StringUtils.isRealNumber(w)) {
+                    cleanedUpSplit.add("REAL_NUMBER");
+                    continue;
+                }
                 cleanedUpSplit.add(w);
             }
         }

@@ -2,6 +2,7 @@ package model.Ludii;
 
 import interfaces.iNGramInstance;
 import interfaces.iNGramModel;
+import split.LudiiFileCleanup;
 import split.NLPSentenceSplit;
 import utils.FileUtils;
 import utils.MatchingTailElements;
@@ -28,10 +29,16 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
     private static final String COMMA = ",";
     private static final String EMPTY_STRING = "";
 
-    public NGramModelLudii(String text, int N) {
-        this.text = text;
+
+    /**
+     * For creating a new model
+     * @param input
+     * @param N
+     */
+    public NGramModelLudii(String input, int N) {
+        this.text = input;
         this.N = N;
-        dictionary = new HashMap<>();
+        this.dictionary = new HashMap<>();
         nlpSplit = new NLPSentenceSplit();
         instanceComparator = new Comparator<NGramInstanceLudii>() {
             @Override
@@ -39,12 +46,15 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
                 return o2.getMultiplicity() - o1.getMultiplicity();
             }
         };
-        if(DEBUG)System.out.println(text);
-        List<String> split = NLPSentenceSplit.splitText(text);
-        if(DEBUG)split.forEach(s -> System.out.println(s));
-        constructModel(split);
+        constructModel(input);
     }
 
+    /**
+     * For reading in a model
+     * @param dictionary
+     * @param text
+     * @param N
+     */
     private NGramModelLudii(HashMap<String, List<NGramInstanceLudii>> dictionary, String text, int N) {
         this.text = text;
         this.N = N;
@@ -57,15 +67,20 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
             }
         };
     }
+
     @Override
-    public void constructModel(List<String> text) {
-        addToModel(text);
+    public void constructModel(String input) {
+        addToModel(input);
     }
 
     @Override
-    public void addToModel(List<String> text) {
+    public void addToModel(String input) {
+        if(DEBUG)System.out.println(input);
+        List<String> split = NLPSentenceSplit.splitText(input);
+        split = LudiiFileCleanup.cleanup(split);
+        if(DEBUG)split.forEach(s -> System.out.println(s));
         // n is the length of the created n grams
-        createNGramInstances(text, true);
+        createNGramInstances(split, true);
         //TODO: calculate the overall multiplicities of the key for each instance
         if(DEBUG)System.out.println("Model:"+toString());
     }
