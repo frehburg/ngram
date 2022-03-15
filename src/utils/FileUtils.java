@@ -136,4 +136,13 @@ public class FileUtils {
         }
         return null;
     }
+
+    public static void deleteFile(String path) {
+        File f = new File(path);
+        if (f.delete()) {
+            System.out.println("Deleted the file: " + f.getName());
+        } else {
+            System.out.println("Failed to delete the file.");
+        }
+    }
 }
