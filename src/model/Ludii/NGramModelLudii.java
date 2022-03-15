@@ -1,5 +1,7 @@
 package model.Ludii;
 
+import gzip.GZIPCompression;
+import gzip.GZIPDecompression;
 import interfaces.iNGramInstance;
 import interfaces.iNGramModel;
 import split.LudiiFileCleanup;
@@ -231,9 +233,14 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
     }
 
     @Override
+    /**
+     * This method first writes the model to a .csv file, compresses it into a .gz file and then deletes
+     * the .csv file
+     */
     public void writeModel(String path) {
+        String tmpPath = "res/tmp/tmp.csv";
         Set<Map.Entry<String, List<NGramInstanceLudii>>> dictionaryEntrySet = dictionary.entrySet();
-        FileWriter fw = FileUtils.writeFile(path);
+        FileWriter fw = FileUtils.writeFile(tmpPath);
         try {
             fw.write(N+"\n");
             fw.write("KEY,WORDS,MULTIPLICITY");
@@ -268,14 +275,35 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
             }
 
             fw.close();
+            //make sure the output file has the .gz extension
+            if(!path.endsWith(".gz")) {
+                if(path.endsWith(".csv")) {
+                    path = path.replace(".csv",".gz");
+                } else {
+                    path = path + ".gz";
+                }
+            }
+
+            //we have written to a .csv file at tmpPath
+            GZIPCompression.compress(tmpPath,path); //this writes a .gz file at the required location
+            FileUtils.deleteFile(tmpPath); // delete the temporary .csv file
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * Expects the path to direct to a .gz file, else use GZIPCompression to compress the file first
+     * @param path
+     * @return
+     */
     public static NGramModelLudii readModel(String path) {
-        Scanner sc = FileUtils.readFile(path);
+        // decompress the file temporarily into a .csv file
+        String tmpDirectory = "res/tmp/tmp.csv";
+        GZIPDecompression.decompress(path,tmpDirectory);
+        // start the reading
+        Scanner sc = FileUtils.readFile(tmpDirectory);
         String nAsString = sc.nextLine();//N as a string
         //remove two commas at the end
         nAsString = nAsString.replaceAll(",,","");
@@ -318,6 +346,8 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
         }
         sc.close();
+        //can now delete temporary .csv file
+        FileUtils.deleteFile(tmpDirectory);
         return new NGramModelLudii(dictionary,"",N);
     }
 
