@@ -20,8 +20,12 @@ import java.util.Objects;
 public class LudiiMain {
     public static boolean DEBUG = true;
     public static void main(String[] args) throws IOException {
-        NGramModelLudii m = NGramModelLudii.readModel("res\\Compression2\\CompressedLudiiModel7.gz");
-        List<String> context = Arrays.asList("(");
+        NGramModelLudii m = NGramModelLudii.readModel("res/Compression2/CompressedLudiiModel7.gz");
+        List<String> context = Arrays.asList("(game");
+        getPrediction(m,context);
+    }
+
+    public static void getPrediction(NGramModelLudii m, List<String> context) {
         int i = 1;
         for(String rec : m.getPicklist(context)) {
             System.out.println(i+". "+rec);
@@ -46,14 +50,23 @@ public class LudiiMain {
 
     public static void createAndWriteModels(int maxN) {
         List<Triple<Integer,Long,Long>> timeComplexity = new ArrayList<>();
-        for(int N = 2; N <= maxN; N++) {
+        for(int N = 5; N <= maxN; N++) {
             long start = System.currentTimeMillis();
-            String compressedPath = createAndWriteModel(N);
+            //gather all lud files
+            List<String> locations = ReadAllGameFiles.findAllGames("res/Ludii/lud");
+            String input = LudiiFileCleanup.allLinesOneString(locations.get(0));
+            NGramModelLudii m = new NGramModelLudii(input,N);
+            locations = locations.subList(1, locations.size());
+            for(String s : locations) {
+                m.addToModel(LudiiFileCleanup.allLinesOneString(s));
+            }
+            String path = "res/Compression2/LudiiModel"+N+".gz";
+            m.writeModel(path);
             long finish = System.currentTimeMillis();
             long computationTime = finish - start;
             long bytes;
             try {
-                bytes = Files.size(Paths.get(compressedPath));
+                bytes = Files.size(Paths.get(path));
                 timeComplexity.add(new Triple<>(N,computationTime,bytes));
                 FileWriter fw = FileUtils.writeFile("res/Compression2/timecomplexity.csv");
                 Objects.requireNonNull(fw).write("N,Time(ms),bytes\n");
@@ -67,27 +80,6 @@ public class LudiiMain {
         }
     }
 
-    public static String createAndWriteModel(int N) {
-        //gather all lud files
-        List<String> locations = ReadAllGameFiles.findAllGames("res/Ludii/lud");
-        String input = LudiiFileCleanup.allLinesOneString(locations.get(0));
-        NGramModelLudii m = new NGramModelLudii(input,N);
-        locations = locations.subList(1, locations.size());
-        for(String s : locations) {
-            m.addToModel(LudiiFileCleanup.allLinesOneString(s));
-        }
-        String path = "res/Compression2/LudiiModel"+N+".csv";
-        m.writeModel(path);
-        String compressedPath = "res/Compression2/CompressedLudiiModel"+N+".gz";
-        GZIPCompression.compress(path,compressedPath);
-        List<String> context = Arrays.asList("(");
-        int i = 1;
-        for(String rec : m.getPicklist(context)) {
-            System.out.println(i+". "+rec);
-            i++;
-        }
-        return compressedPath;
-    }
 
     public static void compressionComplexity() throws IOException {
         FileWriter fw = FileUtils.writeFile("res/Compression2/compressionComplexity.csv");
@@ -109,4 +101,27 @@ public class LudiiMain {
         }
         fw.close();
     }
+
+
+    /*public static String oldWriteCompress(int N) {
+        //gather all lud files
+        List<String> locations = ReadAllGameFiles.findAllGames("res/Ludii/lud");
+        String input = LudiiFileCleanup.allLinesOneString(locations.get(0));
+        NGramModelLudii m = new NGramModelLudii(input,N);
+        locations = locations.subList(1, locations.size());
+        for(String s : locations) {
+            m.addToModel(LudiiFileCleanup.allLinesOneString(s));
+        }
+        String path = "res/Compression2/LudiiModel"+N+".csv";
+        m.writeModel(path);
+        String compressedPath = "res/Compression2/CompressedLudiiModel"+N+".gz";
+        GZIPCompression.compress(path,compressedPath);
+        List<String> context = Arrays.asList("(");
+        int i = 1;
+        for(String rec : m.getPicklist(context)) {
+            System.out.println(i+". "+rec);
+            i++;
+        }
+        return compressedPath;
+    }*/
 }

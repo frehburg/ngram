@@ -5,7 +5,7 @@ import gzip.GZIPDecompression;
 import interfaces.iNGramInstance;
 import interfaces.iNGramModel;
 import split.LudiiFileCleanup;
-import split.NLPSentenceSplit;
+import split.SentenceSplit;
 import utils.FileUtils;
 import utils.MatchingTailElements;
 import utils.Pair;
@@ -24,7 +24,7 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
     private final int N;
     private Comparator<NGramInstanceLudii> instanceComparator;
     private HashMap<String, List<NGramInstanceLudii>> dictionary;
-    private NLPSentenceSplit nlpSplit;
+    private SentenceSplit nlpSplit;
 
     ///
     private static final String COMMA_REPLACEMENT = "--COMMA--";
@@ -41,7 +41,7 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
         this.text = input;
         this.N = N;
         this.dictionary = new HashMap<>();
-        nlpSplit = new NLPSentenceSplit();
+        nlpSplit = new SentenceSplit();
         instanceComparator = new Comparator<NGramInstanceLudii>() {
             @Override
             public int compare(NGramInstanceLudii o1, NGramInstanceLudii o2) {
@@ -61,7 +61,7 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
         this.text = text;
         this.N = N;
         this.dictionary = dictionary;
-        nlpSplit = new NLPSentenceSplit();
+        nlpSplit = new SentenceSplit();
         instanceComparator = new Comparator<NGramInstanceLudii>() {
             @Override
             public int compare(NGramInstanceLudii o1, NGramInstanceLudii o2) {
@@ -78,7 +78,7 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
     @Override
     public void addToModel(String input) {
         if(DEBUG)System.out.println(input);
-        List<String> split = NLPSentenceSplit.splitText(input);
+        List<String> split = SentenceSplit.splitText(input);
         split = LudiiFileCleanup.cleanup(split);
         if(DEBUG)split.forEach(s -> System.out.println(s));
         // n is the length of the created n grams

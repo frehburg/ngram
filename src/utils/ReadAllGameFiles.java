@@ -11,6 +11,8 @@ import java.util.Scanner;
  * .txt file located at src/main/resources/locations.txt.
  */
 public class ReadAllGameFiles {
+    private static final boolean DEBUG = false;
+
     /**
      * This method can be used to
      * - test the methods below for functionality,
@@ -21,8 +23,8 @@ public class ReadAllGameFiles {
     public static void main(String[] args) {
         ArrayList<String> locations = findAllGames("src/main/resources/Ludii/lud");
         writeGameLocations(locations, "src/main/resources/locations.txt");
-        System.out.println("Amount of games found: "+readGameLocations("src/main/resources/locations.txt").size());
-        System.out.println(locations.equals(readGameLocations("src/main/resources/locations.txt")));
+        if(DEBUG)System.out.println("Amount of games found: "+readGameLocations("src/main/resources/locations.txt").size());
+        if(DEBUG)System.out.println(locations.equals(readGameLocations("src/main/resources/locations.txt")));
     }
     public static ArrayList<String> findAllGames(String directory) {
         File folder = new File(directory);
@@ -31,7 +33,7 @@ public class ReadAllGameFiles {
         for(File f : files) {
             String location = f.getAbsolutePath();
             locations.add(location);
-            System.out.println(location);
+            if(DEBUG)System.out.println(location);
         }
         return locations;
     }

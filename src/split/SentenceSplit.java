@@ -3,7 +3,7 @@ package split;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class NLPSentenceSplit {
+public final class SentenceSplit {
     private final static boolean GENERIC = true;
     private final static String TAB = "\t";
     /**
@@ -42,7 +42,6 @@ public final class NLPSentenceSplit {
                         currentWord += currentChar;
                     }
                     break;
-                case '(':
                 case ')':
                 case ',':
                 case '.':
