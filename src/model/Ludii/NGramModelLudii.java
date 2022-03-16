@@ -22,11 +22,11 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
     public static boolean DEBUG = false;
     private final String text;
     private final int N;
-    private Comparator<NGramInstanceLudii> instanceComparator;
-    private HashMap<String, List<NGramInstanceLudii>> dictionary;
-    private SentenceSplit nlpSplit;
+    private final Comparator<NGramInstanceLudii> instanceComparator;
+    private final HashMap<String, List<NGramInstanceLudii>> dictionary;
+    private final SentenceSplit nlpSplit;
 
-    ///
+    //
     private static final String COMMA_REPLACEMENT = "--COMMA--";
     private static final String COMMA = ",";
     private static final String EMPTY_STRING = "";
@@ -84,7 +84,7 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
         // n is the length of the created n grams
         createNGramInstances(split, true);
         //TODO: calculate the overall multiplicities of the key for each instance
-        if(DEBUG)System.out.println("Model:"+toString());
+        if(DEBUG)System.out.println("Model:"+ this);
     }
 
     public List<NGramInstanceLudii> createNGramInstances(List<String> split, boolean addToDictionary) {
@@ -112,6 +112,11 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
     @Override
     public List<String> getPicklist(List<String> context) {
+        if(DEBUG)System.out.println("CONTEXT"+context);
+        //special case: empty file
+        if((context.size() == 1) && context.contains("")) {
+            return Arrays.asList("(game");
+        }
         //this first fetches the picklist
         String key = context.get(context.size() - 1);
         List<NGramInstanceLudii> picklist = dictionary.getOrDefault(key,new ArrayList<>());
@@ -153,7 +158,7 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
             int pMultiplicity = 0;
             int maxMatchingWords = 0;
             String entryPrediction = entry.getKey();
-            List<String> newInstanceWords = Arrays.asList(new String[]{key,entryPrediction});
+            List<String> newInstanceWords = Arrays.asList(key,entryPrediction);
             for(Pair<NGramInstanceLudii,Integer> p : entry.getValue()) {
                 pMultiplicity += p.getR().getMultiplicity();
                 //if p has more matching words than stored, update, else do nothing
@@ -317,10 +322,10 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
 
         while(sc.hasNextLine()) {
             String line = sc.nextLine();
-            System.out.println("--------------------------");
-            System.out.println(line);
+            if(DEBUG)System.out.println("--------------------------");
+            if(DEBUG)System.out.println(line);
             String[] split = line.split(COMMA);
-            System.out.println("|"+split[0]+"|"+ split[0].equals(EMPTY_STRING));
+            if(DEBUG)System.out.println("|"+split[0]+"|"+ split[0].equals(EMPTY_STRING));
             String key = split[0];
             key = key.replaceAll(COMMA_REPLACEMENT,COMMA);
 

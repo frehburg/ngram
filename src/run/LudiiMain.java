@@ -16,13 +16,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class LudiiMain {
     public static boolean DEBUG = true;
-    public static void main(String[] args) throws IOException {
-        NGramModelLudii m = NGramModelLudii.readModel("res/Compression2/CompressedLudiiModel7.gz");
-        List<String> context = Arrays.asList("(game");
+    public static void main(String[] args) throws IOException, InterruptedException {
+        long start = System.currentTimeMillis();
+        NGramModelLudii m = NGramModelLudii.readModel("res/Compression2/LudiiModel7.gz");
+        System.out.println(System.currentTimeMillis() - start);
+        start = System.currentTimeMillis();
+        List<String> context = Arrays.asList("");
         getPrediction(m,context);
+        System.out.println(System.currentTimeMillis() - start);
     }
 
     public static void getPrediction(NGramModelLudii m, List<String> context) {
