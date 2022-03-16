@@ -20,24 +20,13 @@ import java.util.Objects;
 public class LudiiMain {
     public static boolean DEBUG = true;
     public static void main(String[] args) throws IOException {
-        FileWriter fw = FileUtils.writeFile("res/Compression2/compressionComplexity.csv");
-        Objects.requireNonNull(fw).write("N,compression_ms,compression_s,compression_min,decompression_ms,decompression_s,decompression_min\n");
-        for(int N = 2; N <= 17; N++) {
-            String compressedPath = "res/Compression2/compressed/CompressedLudiiModel"+N+".gz";
-            long startDecompression = System.currentTimeMillis();
-            NGramModelLudii m = decompressRead(compressedPath);
-            long finishDecompression = System.currentTimeMillis();
-            long decompressionTime = finishDecompression - startDecompression;
-            String outputPath = "res/Compression2/CompressedLudiiModel"+N+".gz";
-            long startCompression = System.currentTimeMillis();
-            compressWrite(m,outputPath);
-            long finishCompression = System.currentTimeMillis();
-            long compressionTime = finishCompression - startCompression;
-            fw.write(N+","+compressionTime+","+(double)compressionTime/1000+","
-                    +(double)compressionTime/(1000*60)+","+decompressionTime+","
-                    +(double)decompressionTime/1000+","+(double)decompressionTime/(1000*60)+"\n");
+        NGramModelLudii m = NGramModelLudii.readModel("res\\Compression2\\CompressedLudiiModel7.gz");
+        List<String> context = Arrays.asList("(");
+        int i = 1;
+        for(String rec : m.getPicklist(context)) {
+            System.out.println(i+". "+rec);
+            i++;
         }
-        fw.close();
     }
 
     public static void compressWrite(NGramModelLudii m, String path) {
@@ -98,5 +87,26 @@ public class LudiiMain {
             i++;
         }
         return compressedPath;
+    }
+
+    public static void compressionComplexity() throws IOException {
+        FileWriter fw = FileUtils.writeFile("res/Compression2/compressionComplexity.csv");
+        Objects.requireNonNull(fw).write("N,compression_ms,compression_s,compression_min,decompression_ms,decompression_s,decompression_min\n");
+        for(int N = 2; N <= 17; N++) {
+            String compressedPath = "res/Compression2/compressed/CompressedLudiiModel"+N+".gz";
+            long startDecompression = System.currentTimeMillis();
+            NGramModelLudii m = decompressRead(compressedPath);
+            long finishDecompression = System.currentTimeMillis();
+            long decompressionTime = finishDecompression - startDecompression;
+            String outputPath = "res/Compression2/CompressedLudiiModel"+N+".gz";
+            long startCompression = System.currentTimeMillis();
+            compressWrite(m,outputPath);
+            long finishCompression = System.currentTimeMillis();
+            long compressionTime = finishCompression - startCompression;
+            fw.write(N+","+compressionTime+","+(double)compressionTime/1000+","
+                    +(double)compressionTime/(1000*60)+","+decompressionTime+","
+                    +(double)decompressionTime/1000+","+(double)decompressionTime/(1000*60)+"\n");
+        }
+        fw.close();
     }
 }
