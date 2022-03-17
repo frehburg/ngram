@@ -20,7 +20,7 @@ import java.util.Objects;
 public class LudiiMain {
     public static boolean DEBUG = true;
     public static void main(String[] args) throws IOException, InterruptedException {
-        NGramValidation.handleValidations(20);
+        NGramValidation.handleValidations(12);
     }
 
     public static void getPrediction(List<String> context) {
