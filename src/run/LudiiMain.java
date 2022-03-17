@@ -7,30 +7,28 @@ import split.LudiiFileCleanup;
 import utils.FileUtils;
 import utils.ReadAllGameFiles;
 import utils.Triple;
+import validation.NGramValidation;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class LudiiMain {
     public static boolean DEBUG = true;
     public static void main(String[] args) throws IOException, InterruptedException {
+        NGramValidation.handleValidations(20);
+    }
+
+    public static void getPrediction(List<String> context) {
         long start = System.currentTimeMillis();
         NGramModelLudii m = NGramModelLudii.readModel("res/Compression2/LudiiModel7.gz");
         System.out.println(System.currentTimeMillis() - start);
         start = System.currentTimeMillis();
-        List<String> context = Arrays.asList("");
-        getPrediction(m,context);
         System.out.println(System.currentTimeMillis() - start);
-    }
-
-    public static void getPrediction(NGramModelLudii m, List<String> context) {
         int i = 1;
         for(String rec : m.getPicklist(context)) {
             System.out.println(i+". "+rec);
@@ -55,15 +53,15 @@ public class LudiiMain {
 
     public static void createAndWriteModels(int maxN) {
         List<Triple<Integer,Long,Long>> timeComplexity = new ArrayList<>();
-        for(int N = 5; N <= maxN; N++) {
+        for(int N = 2; N <= maxN; N++) {
             long start = System.currentTimeMillis();
             //gather all lud files
             List<String> locations = ReadAllGameFiles.findAllGames("res/Ludii/lud");
             String input = LudiiFileCleanup.allLinesOneString(locations.get(0));
             NGramModelLudii m = new NGramModelLudii(input,N);
             locations = locations.subList(1, locations.size());
-            for(String s : locations) {
-                m.addToModel(LudiiFileCleanup.allLinesOneString(s));
+            for(String location : locations) {
+                m.addToModel(LudiiFileCleanup.allLinesOneString(location));
             }
             String path = "res/Compression2/LudiiModel"+N+".gz";
             m.writeModel(path);
@@ -73,7 +71,7 @@ public class LudiiMain {
             try {
                 bytes = Files.size(Paths.get(path));
                 timeComplexity.add(new Triple<>(N,computationTime,bytes));
-                FileWriter fw = FileUtils.writeFile("res/Compression2/timecomplexity.csv");
+                FileWriter fw = FileUtils.writeFile("res/Compression2/timecomplexity.gz");
                 Objects.requireNonNull(fw).write("N,Time(ms),bytes\n");
                 for(Triple<Integer,Long,Long> t : timeComplexity) {
                     fw.write(t.getR()+","+t.getS()+","+t.getT()+"\n");

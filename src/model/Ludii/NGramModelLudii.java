@@ -118,7 +118,12 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
             return Arrays.asList("(game");
         }
         //this first fetches the picklist
-        String key = context.get(context.size() - 1);
+        String key;
+        if((context.size() == 1 && context.contains("")) || context.isEmpty()) {
+            key = "";
+        } else {
+            key = context.get(context.size() - 1);
+        }
         List<NGramInstanceLudii> picklist = dictionary.getOrDefault(key,new ArrayList<>());
         if(picklist.isEmpty()) {
             //no predictions found
@@ -185,7 +190,8 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
         ArrayList<String> stringPicklist = new ArrayList<>();
         for(Pair<NGramInstanceLudii,Integer> p : matchingCountPicklist) {
             //TODO: use tuple with rec and multiplicity as return; for now append multiplicity to string
-            stringPicklist.add("Prediction: \""+p.getR().getLast() + "\", Multiplicity: " + p.getR().getMultiplicity() + " & Matching words w/ context: " + p.getS());
+            stringPicklist.add(p.getR().getLast());
+            //stringPicklist.add("Prediction: \""+p.getR().getLast() + "\", Multiplicity: " + p.getR().getMultiplicity() + " & Matching words w/ context: " + p.getS());
         }
         if(DEBUG)System.out.println("FULL PICKLIST: ");
         if(DEBUG)picklist.forEach(s -> System.out.println(s));
