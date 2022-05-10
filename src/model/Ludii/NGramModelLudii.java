@@ -9,6 +9,7 @@ import split.SentenceSplit;
 import utils.FileUtils;
 import utils.MatchingTailElements;
 import utils.Pair;
+import utils.Sorter;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -172,24 +173,9 @@ public class NGramModelLudii implements iNGramModel<List<String>,String> {
             matchingCountPicklist.add(new Pair<>(new NGramInstanceLudii(newInstanceWords,pMultiplicity), maxMatchingWords));
         }
         //sort the picklist
-        matchingCountPicklist.sort(new Comparator<Pair<NGramInstanceLudii, Integer>>() {
-            @Override
-            public int compare(Pair<NGramInstanceLudii, Integer> p1, Pair<NGramInstanceLudii, Integer> p2) {
-                int multiplicity1 = p1.getR().getMultiplicity(), multiplicity2 = p2.getR().getMultiplicity();
-                int diffMultiplicity = multiplicity2 - multiplicity1;
-                if(diffMultiplicity == 0) {
-                    //need to check matching words, since both have the same multiplicity
-                    int matchingWords1 = p1.getS(), matchingWords2 = p2.getS();
-                    int diffMatchingwords = matchingWords2 - matchingWords1;
-                    return diffMatchingwords;
-                } else {
-                    return diffMultiplicity;
-                }
-            }
-        });
+        matchingCountPicklist = Sorter.nestedBucketSort(matchingCountPicklist,10);
         ArrayList<String> stringPicklist = new ArrayList<>();
         for(Pair<NGramInstanceLudii,Integer> p : matchingCountPicklist) {
-            //TODO: use tuple with rec and multiplicity as return; for now append multiplicity to string
             stringPicklist.add(p.getR().getLast());
             //stringPicklist.add("Prediction: \""+p.getR().getLast() + "\", Multiplicity: " + p.getR().getMultiplicity() + " & Matching words w/ context: " + p.getS());
         }

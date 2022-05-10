@@ -29,7 +29,7 @@ public class NGramValidation {
             String gameDescription = LudiiFileCleanup.allLinesOneString(location);
             gameDescriptions.add(gameDescription);
         }
-        for(int N = 2; N <= maxN; N++) {
+        for(int N = 6; N <= maxN; N++) {
             System.out.println("Validating "+N+"-Gram model");
             kFoldCrossValidation(N, K, gameDescriptions);
             System.out.println("Finished validating "+N+"-Gram model");
@@ -44,8 +44,8 @@ public class NGramValidation {
         //divide the data into k folds
         List<List<String>> folds = new ArrayList<>(k);
         int foldSize = gameDescriptions.size()/k;
+        System.out.println("Dividing into folds...");
         for(int foldIt = 0; foldIt < k - 1; foldIt++) {
-            System.out.println("Dividing into folds...");
             List<String> fold = gameDescriptions.subList(foldIt*foldSize,(foldIt+1)*foldSize);
             folds.add(fold);
         }

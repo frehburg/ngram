@@ -14,7 +14,7 @@ public class LudiiFileCleanup {
         boolean foundMetadata = false;
         for(String w : split) {
             //check for metadata
-            if(w.equals("metadata")) {
+            if(w.equals("(metadata")) {
                 foundMetadata = true;
                 break;
             }
@@ -34,6 +34,13 @@ public class LudiiFileCleanup {
                     continue;
                 } else if(StringUtils.isRealNumber(w)) {
                     cleanedUpSplit.add("REAL_NUMBER");
+                    continue;
+                }
+                //c. comments
+                if(w.contains("//")) {
+                    w = w.substring(0,w.lastIndexOf("//"));
+                }
+                if(StringUtils.containsOnly(w,'-')) {
                     continue;
                 }
                 cleanedUpSplit.add(w);

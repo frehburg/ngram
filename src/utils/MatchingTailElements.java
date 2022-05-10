@@ -3,6 +3,8 @@ package utils;
 import java.util.List;
 
 public final class MatchingTailElements {
+    private static final boolean DEBUG = false;
+
     /**
      * Returns the number of matching elements starting at the end of the list.
      * E.g.1: Same last element
@@ -23,18 +25,25 @@ public final class MatchingTailElements {
      * @return
      */
     public static <F> int count(List<F> superlist, List<F> sublist) {
+        if(DEBUG)System.out.println("------------Match----------");
+        if(DEBUG)System.out.println(superlist);
+        if(DEBUG)System.out.println(sublist);
         //0. if one of them is empty, return false
         if(superlist.isEmpty() || sublist.isEmpty())
             return 0;
         //2. Starting at the back, compare the elements of both lists
-        int i;
-        for(i = 1; i < sublist.size() && i < superlist.size(); i++) {
-            F superCur = superlist.get(superlist.size() - i), subCur = sublist.get(sublist.size() - i);
-            //check if is NOT the same and return one less than i
-            if(!superCur.equals(subCur)) {
-                return i - 1;
+        int sameTailLength = 0;
+        if(DEBUG)System.out.println("SUPERLIST.size():"+superlist.size() + " SUBLIST:size():" + sublist.size());
+        for(int i = 0; i < superlist.size() && i < sublist.size(); i++){
+            F superW = superlist.get(superlist.size() - i - 1), subW = sublist.get(sublist.size() - i - 1);
+            if(DEBUG)System.out.println("SUPER word:\""+superW+"\" SUB word:"+subW);
+            if(subW.equals(superW)) {
+                sameTailLength++;
+            } else {//no match anymore, end loop
+                break;
             }
         }
-        return i;
+        if(DEBUG)System.out.println("MATCHING WORDS:"+sameTailLength);
+        return sameTailLength;
     }
 }

@@ -44,4 +44,13 @@ public class StringUtils {
         }
         return false;
     }
+
+    public static boolean containsOnly(String s, char c) {
+        for(int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) != c) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -4,10 +4,10 @@ import gzip.GZIPCompression;
 import gzip.GZIPDecompression;
 import model.Ludii.NGramModelLudii;
 import split.LudiiFileCleanup;
+import split.SentenceSplit;
 import utils.FileUtils;
 import utils.ReadAllGameFiles;
 import utils.Triple;
-import validation.NGramValidation;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,15 +20,32 @@ import java.util.Objects;
 public class LudiiMain {
     public static boolean DEBUG = true;
     public static void main(String[] args) throws IOException, InterruptedException {
-        NGramValidation.handleValidations(12);
+        String input = "(game \"Aksadyuta\" (players 2)";
+        List<String> split = SentenceSplit.splitText(input);
+        split = LudiiFileCleanup.cleanup(split);
+        System.out.println("CONTEXT:"+split);
+        getPrediction(split);
     }
 
+    public static void getPrediction(List<String> context, int picklistLength) {
+        long start = System.currentTimeMillis();
+        NGramModelLudii m = NGramModelLudii.readModel("res/Compression2/LudiiModel7.gz");
+        if(DEBUG)System.out.println(System.currentTimeMillis() - start);
+        start = System.currentTimeMillis();
+        if(DEBUG)System.out.println(System.currentTimeMillis() - start);
+        int i = 1;
+        for(String rec : m.getPicklist(context, picklistLength)) {
+            System.out.println(i+". "+rec);
+            i++;
+        }
+
+    }
     public static void getPrediction(List<String> context) {
         long start = System.currentTimeMillis();
         NGramModelLudii m = NGramModelLudii.readModel("res/Compression2/LudiiModel7.gz");
-        System.out.println(System.currentTimeMillis() - start);
+        if(DEBUG)System.out.println(System.currentTimeMillis() - start);
         start = System.currentTimeMillis();
-        System.out.println(System.currentTimeMillis() - start);
+        if(DEBUG)System.out.println(System.currentTimeMillis() - start);
         int i = 1;
         for(String rec : m.getPicklist(context)) {
             System.out.println(i+". "+rec);
@@ -53,7 +70,7 @@ public class LudiiMain {
 
     public static void createAndWriteModels(int maxN) {
         List<Triple<Integer,Long,Long>> timeComplexity = new ArrayList<>();
-        for(int N = 2; N <= maxN; N++) {
+        for(int N = 7; N <= maxN; N++) {
             long start = System.currentTimeMillis();
             //gather all lud files
             List<String> locations = ReadAllGameFiles.findAllGames("res/Ludii/lud");

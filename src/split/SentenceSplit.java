@@ -5,6 +5,7 @@ import java.util.List;
 
 public final class SentenceSplit {
     private final static boolean GENERIC = true;
+    private final static boolean DEBUG = false;
     private final static String TAB = "\t";
     /**
      * This method will split a text of natural language into its words and
@@ -68,6 +69,9 @@ public final class SentenceSplit {
                     break;
             }
             System.currentTimeMillis();
+            if(currentWord.equals(" )")) {
+                if(DEBUG)System.out.println("ERRORR---------------------");
+            }
         }
         if(!currentWord.equals(""))split.add(currentWord);
         return split;
